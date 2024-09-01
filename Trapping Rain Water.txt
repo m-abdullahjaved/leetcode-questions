@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        vector<int> left(height.size(), 0), right(height.size(), 0);
+        int size = height.size();
+        left[0] = height[0];
+        right[size - 1] = height[size - 1];
+        cout << left[0] << " ";
+        for (int i = 1; i < size; i++)
+            left[i] = max(height[i], left[i - 1]);
+        
+        for (int j = size - 2; j >= 0; j--)
+            right[j] = max(right[j + 1], height[j]);
+
+        int totalWater = 0;
+
+        for (int i = 0; i < size; i++)
+            totalWater += min(left[i], right[i]) - height[i];
+        
+
+        return totalWater;
+    }
+};
